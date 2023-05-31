@@ -1,0 +1,351 @@
+#include <Ps3Controller.h>
+
+void setup() 
+{
+  Serial.begin(115200) ; // tida diberi pin, tida bs disambungnin kemanamana, atau untuk serial monitor 
+  Serial2.begin(115200) ; //  seberapa cepet antar komponen 
+  Ps3.begin ("c8:f0:9e:52:8d:4e");
+  Serial.println ("Ready.");
+}
+
+void loop()
+{
+  if (Ps3.isConnected())
+  {
+    //ANALOG
+    int yAxisValue = (Ps3.data.analog.stick.ly) ;
+    int xAxisValue = (Ps3.data.analog.stick.rx) ;
+    int yAxisValue2 = (Ps3.data.analog.stick.lx) ;
+    int xAxisValue2 = (Ps3.data.analog.stick.ry) ;
+
+    if (yAxisValue <= -50)
+    {
+      Serial.println("analog atas kiri");
+      Serial2.println ('A') ;
+    }
+    else if (yAxisValue >= 50)
+    {
+      Serial.println ("analog bawah kiri");
+      Serial2.println ('B') ;
+    }
+    else if (yAxisValue2 >= 50)
+    {
+      Serial.println ("analog kanan (kiri)");
+      Serial2.println ('C') ;
+    }
+    else if (yAxisValue2 <= -50)
+    {
+      Serial.println ("analog kiri (kiri)");
+      Serial2.println ('D') ;
+    }
+    else if (xAxisValue2 <= -50)
+    {
+      Serial.println("analog atas kanan");
+      Serial2.println ('E') ;
+    }
+    else if (xAxisValue2 >= 50)
+    {
+      Serial.println ("analog bawah kanan");
+      Serial2.println ('F') ;
+    }
+    else if (xAxisValue >= 50)
+    {
+      Serial.println ("analog kanan (kanan)");
+      Serial2.println ('G') ;
+    }
+    else if (xAxisValue <= -50)
+    {
+      Serial.println ("analog kiri (kanan)");
+      Serial2.println ('H') ;
+    } 
+    //COMBO X KOTAK SEGITIGA LINGKARAN
+    else if (Ps3.data.button.cross && Ps3.data.button.r2)
+    {
+      Serial.println ("X R2");
+      Serial2.println ('I');
+    }
+    else if (Ps3.data.button.square && Ps3.data.button.r2)
+    {
+      Serial.println ("KOTAK R2");
+      Serial2.println ('J');
+    }
+    else if (Ps3.data.button.triangle && Ps3.data.button.r2)
+    {
+      Serial.println ("SEGITIGA R2");
+      Serial2.println ('K');
+    }
+    else if (Ps3.data.button.circle && Ps3.data.button.r2)
+    {
+      Serial.println ("LINGKARAN R2");
+      Serial2.println ('L');
+    }
+    else if (Ps3.data.button.cross && Ps3.data.button.l2)
+    {
+      Serial.println ("X L2");
+      Serial2.println ('M');
+    }
+    else if (Ps3.data.button.square && Ps3.data.button.l2)
+    {
+      Serial.println ("KOTAK L2");
+      Serial2.println ('N');
+    }
+    else if (Ps3.data.button.triangle && Ps3.data.button.l2)
+    {
+      Serial.println ("SEGITIGA L2");
+      Serial2.println ('O');
+    }
+    else if (Ps3.data.button.circle && Ps3.data.button.l2)
+    {
+      Serial.println ("LINGKARAN L2");
+      Serial2.println ('P');
+    }
+    else if (Ps3.data.button.cross && Ps3.data.button.r1)
+    {
+      Serial.println ("X R1");
+      Serial2.println ('Q');
+    }
+    else if (Ps3.data.button.square && Ps3.data.button.r1)
+    {
+      Serial.println ("KOTAK R1");
+      Serial2.println ('R');
+    }
+    else if (Ps3.data.button.triangle && Ps3.data.button.r1)
+    {
+      Serial.println ("SEGITIGA R1");
+      Serial2.println ('S');
+    }
+    else if (Ps3.data.button.circle && Ps3.data.button.r1)
+    {
+      Serial.println ("LINGKARAN R1");
+      Serial2.println ('T');
+    }
+    else if (Ps3.data.button.cross && Ps3.data.button.l1)
+    {
+      Serial.println ("X l1");
+      Serial2.println ('U');
+    }
+    else if (Ps3.data.button.square && Ps3.data.button.l1)
+    {
+      Serial.println ("KOTAK L1");
+      Serial2.println ('V');
+    }
+    else if (Ps3.data.button.triangle && Ps3.data.button.l1)
+    {
+      Serial.println ("SEGITIGA L1");
+      Serial2.println ('W');
+    }
+    else if (Ps3.data.button.circle && Ps3.data.button.l1)
+    {
+      Serial.println ("LINGKARAN L1");
+      Serial2.println ('X');
+    }
+
+    //COMBO ATAS BAWAH KIRI KANAN
+    else if (Ps3.data.button.up && Ps3.data.button.l1)
+    {
+      Serial.println ("ATAS L1");
+      Serial2.println ('Y');
+    }
+    else if (Ps3.data.button.down && Ps3.data.button.l1)
+    {
+      Serial.println ("BAWAH L1");
+      Serial2.println ('Z');
+    }
+      else if (Ps3.data.button.left && Ps3.data.button.l1)
+    {
+      Serial.println ("KIRI L1");
+      Serial2.println ('8');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.l1)
+    {
+      Serial.println ("KANAN L1");
+      Serial2.println ('9');
+    }
+     else if (Ps3.data.button.up && Ps3.data.button.l2)
+    {
+      Serial.println ("ATAS L2");
+      Serial2.println ('|');
+    }
+    else if (Ps3.data.button.down && Ps3.data.button.l2)
+    {
+      Serial.println ("BAWAH L2");
+      Serial2.println ('+');
+    }
+      else if (Ps3.data.button.left && Ps3.data.button.l2)
+    {
+      Serial.println ("KIRI L2");
+      Serial2.println ('a');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.l2)
+    {
+      Serial.println ("KANAN L2");
+      Serial2.println ('b');
+    }
+    else if (Ps3.data.button.down && Ps3.data.button.r1)
+    {
+      Serial.println ("BAWAH R1");
+      Serial2.println ('c');
+    }
+      else if (Ps3.data.button.left && Ps3.data.button.r1)
+    {
+      Serial.println ("KIRI R1");
+      Serial2.println ('d');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.r1)
+    {
+      Serial.println ("KANAN R1");
+      Serial2.println ('e');
+    }
+     else if (Ps3.data.button.up && Ps3.data.button.r1)
+    {
+      Serial.println ("ATAS R1");
+      Serial2.println ('f');
+    }
+    else if (Ps3.data.button.down && Ps3.data.button.r1)
+    {
+      Serial.println ("BAWAH R1");
+      Serial2.println ('g');
+    }
+      else if (Ps3.data.button.left && Ps3.data.button.r1)
+    {
+      Serial.println ("KIRI R1");
+      Serial2.println ('h');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.r1)
+    {
+      Serial.println ("KANAN R1");
+      Serial2.println ('i');
+    }
+     else if (Ps3.data.button.up && Ps3.data.button.r2)
+    {
+      Serial.println ("ATAS R2");
+      Serial2.println ('j');
+    }
+       else if (Ps3.data.button.down && Ps3.data.button.r2)
+    {
+      Serial.println ("BAWAH R2");
+      Serial2.println ('k');
+    }
+      else if (Ps3.data.button.left && Ps3.data.button.r2)
+    {
+      Serial.println ("KIRI R2");
+      Serial2.println ('l');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.r2)
+    {
+      Serial.println ("KANAN R2");
+      Serial2.println ('m');
+    }
+
+    //COMBO L1 L2 R1 R2
+     else if (Ps3.data.button.l1 && Ps3.data.button.l2)
+    {
+      Serial.println ("L1L2");
+      Serial2.println ('n');
+    }
+       else if (Ps3.data.button.l1 && Ps3.data.button.r1)
+    {
+      Serial.println ("L1R1");
+      Serial2.println ('o');
+    }
+      else if (Ps3.data.button.r1 && Ps3.data.button.r2)
+    {
+      Serial.println ("R1R2");
+      Serial2.println ('p');
+    }
+    else if (Ps3.data.button.r2 && Ps3.data.button.l2)
+    {
+      Serial.println ("R2L2");
+      Serial2.println ('q');
+    }
+
+    //COMBO ARAH + O
+    else if (Ps3.data.button.up && Ps3.data.button.circle)
+    {
+      Serial.println ("ATAS LINGKARAN");
+      Serial2.println ('r');
+    }
+    else if (Ps3.data.button.down && Ps3.data.button.circle)
+    {
+      Serial.println ("BAWAH LINGKARAN");
+      Serial2.println ('s');
+    }
+    else if (Ps3.data.button.left && Ps3.data.button.circle)
+    {
+      Serial.println ("KIRI LINGKARAN");
+      Serial2.println ('t');
+    }
+    else if (Ps3.data.button.right && Ps3.data.button.circle)
+    {
+      Serial.println ("KANAN LINGKARAN");
+      Serial2.println ('u');
+    }
+
+    //NON COMBO CROSS DAN TEMAN TEMANNYA
+      else if (Ps3.data.button.cross)
+    {
+      Serial.println ("X");
+      Serial2.println ('v');
+    }
+    else if (Ps3.data.button.triangle)
+    {
+      Serial.println ("SEGITIGA");
+      Serial2.println ('w');
+    }
+   else if (Ps3.data.button.square)
+    {
+      Serial.println ("KOTAK");
+      Serial2.println ('x');
+    }
+   else if (Ps3.data.button.circle)
+    {
+      Serial.println ("LINGKARAN");
+      Serial2.println ('y');
+      }
+    //NON COMBO KANAN KIRI ATAS BAWAH
+       else if (Ps3.data.button.up)
+    {
+      Serial.println ("ATAS");
+      Serial2.println ('z');
+    }
+    else if (Ps3.data.button.down)
+    {
+      Serial.println ("BAWAH");
+      Serial2.println ('1');
+    }
+   else if (Ps3.data.button.left)
+    {
+      Serial.println ("KIRI");
+      Serial2.println ('2');
+    }
+   else if (Ps3.data.button.right)
+    {
+      Serial.println ("KANAN");
+      Serial2.println ('3');
+      }
+   else if (Ps3.data.button.r1){
+    Serial.println ("R1");
+    Serial2.println ('4');
+    }
+    else if (Ps3.data.button.l1){
+    Serial.println ("L1");
+    Serial2.println ('5');
+    }
+    else if (Ps3.data.button.r2){
+    Serial.println ("R2");
+    Serial2.println ('6');
+    }
+    else if (Ps3.data.button.l2){
+    Serial.println ("L2");
+    Serial2.println ('7');
+    }
+   else 
+   {
+     Serial.println (" ");
+     Serial2.println ('-');// tidak menekan apapun / berhenti
+        
+   }
+   delay (10);
+  }
+  
+}
