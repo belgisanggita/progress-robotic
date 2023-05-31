@@ -1,0 +1,204 @@
+#define motora1 13
+#define motora2 12
+#define motorb1 11
+#define motorb2 10
+#define motorc1 9
+#define motorc2 8
+#define motord1 5
+#define motord2 4
+char joy;
+
+void setup() {
+//put your setup code here, to run once:
+Serial.begin(115200); //nomer didalam kurung didapat dari serial ps3.controller
+Serial3.begin(115200);
+pinMode(motora1,OUTPUT);
+pinMode(motora2,OUTPUT);
+pinMode(motorb1,OUTPUT);
+pinMode(motorb2,OUTPUT);
+pinMode(motorc1,OUTPUT);
+pinMode(motorc2,OUTPUT);
+pinMode(motord1,OUTPUT);
+pinMode(motord2,OUTPUT);
+}
+
+void MA (int a)
+{
+  if (a>0)
+  {
+    analogWrite(motora1,a);
+    digitalWrite(motora2,LOW);
+  }
+  else if (a<0)
+  {
+    analogWrite(motora1,255+a);
+    digitalWrite(motora2,HIGH);
+  }
+  else
+  {
+    digitalWrite(motora1,HIGH);
+    digitalWrite(motora2,HIGH);
+  }
+}
+
+void MB (int b)
+{
+  if (b>0)
+  {
+    analogWrite(motorb1,b);
+    digitalWrite(motorb2,LOW);
+  }
+  else if (b<0)
+  {
+    analogWrite(motorb1,255+b);
+    digitalWrite(motorb2,HIGH);
+  }
+  else
+  {
+    digitalWrite(motorb1,HIGH);
+    digitalWrite(motorb2,HIGH);
+  }
+}
+
+void MC (int c)
+{
+  if (c>0)
+  {
+    analogWrite(motorc1,c);
+    digitalWrite(motorc2,LOW);
+  }
+  else if (c<0)
+  {
+    analogWrite(motorc1,255+c);
+    digitalWrite(motorc2,HIGH);
+  }
+  else
+  {
+    digitalWrite(motorc1,HIGH);
+    digitalWrite(motorc2,HIGH);
+  }
+}
+
+void MD (int d)
+{
+  if (d>0)
+  {
+    analogWrite(motord1,d);
+    digitalWrite(motord2,LOW);
+  }
+  else if (d<0)
+  {
+    analogWrite(motord1,255+d);
+    digitalWrite(motord2,HIGH);
+  }
+  else
+  {
+    digitalWrite(motord1,HIGH);
+    digitalWrite(motord2,HIGH);
+  }
+}
+
+void MAJU()
+{
+ MA(100);
+ MB(-100);
+ MC(-100);
+ MD(100);
+}
+void MUNDUR()
+{
+ MA(-100);
+ MB(100);
+ MC(100);
+ MD(-100);
+}
+void KANAN()
+{
+ MA(-100);
+ MB(-100);
+ MC(100);
+ MD(100);
+}
+void KIRI()
+{
+ MA(100);
+ MB(100);
+ MC(-100);
+ MD(-100);
+}
+void PutarKanan()
+{
+ MA(-100);
+ MB(-100);
+ MC(-100);
+ MD(-100);
+}
+void PutarKiri()
+{
+ MA(100);
+ MB(100);
+ MC(100);
+ MD(100);
+}
+void SerongKiriMaju()
+{
+ MA(0);
+ MB(-100);
+ MC(0);
+ MD(100); 
+}
+void SerongKananMaju()
+{
+ MA(100);
+ MB(0);
+ MC(-100);
+ MD(0);
+}
+void SerongKiriMundur()
+{
+ MA(0);
+ MB(100);
+ MC(0);
+ MD(-100);  
+}
+void SerongKananMundur()
+{
+ MA(-100);
+ MB(0);
+ MC(100);
+ MD(0); 
+}
+void Berhenti()
+{
+ MA(0);
+ MB(0);
+ MC(0);
+ MD(0); 
+}
+void bacaJoy()
+{
+  if (Serial3.available()){
+    joy = Serial3.read();
+  }
+}
+
+void loop() {
+  
+  bacaJoy();
+  //if(joy=='s'){MAJU();} //R1
+  //else if(joy=='t'){MUNDUR();} //R2
+  //else if(joy=='u'){KANAN();} //L1
+  //else if(joy=='v'){KIRI();} //L2
+  if (joy=='A' || joy=='z'){MAJU();} //atas
+  else if (joy=='B' || joy=='1') {MUNDUR();} //bawah
+  else if (joy=='2' || joy=='D') {KIRI();} //kiri
+  else if (joy=='3' || joy=='H') {KANAN();} //kanan
+  else if (joy=='4') {PutarKanan();} //putar ke kanan, atas R1
+  else if (joy== '5') {PutarKiri();} //putar ke kiri, atas L1
+  else if (joy== 'G') {SerongKiriMaju();} //serong kiri maju tombol segitiga
+  else if (joy== 'F') {SerongKananMundur();} //analog kanan bawah
+  else if (joy== 'E') {SerongKananMaju();} //analog kanan atas
+  else if (joy== 'C') {SerongKiriMundur();} //analog kanan (kiri)
+  else if (joy== '-') {Berhenti();} //tidak ditekan
+//  MAJU();
+}
